@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Política & Poder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png" type="image/jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+    <img src="logo.jpeg" alt="Logo" class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">
+    <h1>Política & Poder</h1>
+    <p>Análisis, noticias y opinión</p>
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="#">Política</a>
+    <a href="#">Economía</a>
+    <a href="#">Opinión</a>
+    
+    <button id="crearPostBtn" class="nav-admin-btn" onclick="irAdmin()" style="display:none;">
+         Panel de redacción
+    </button>
+    
+    <button id="logoutBtn" class="btn-logout" onclick="logout()" style="display:none;">
+        Salir
+    </button>
+</nav>
+
+<div class="container">
+    <div id="contenedorNoticias">
+        </div>
+</div>
+
+<footer>
+    <p>© 2026 Política & Poder</p>
+    <a href="#" id="loginLink" onclick="abrirModal()" class="footer-login">Acceso</a>
+</footer>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Acceso Redacción</h2>
+        <input type="text" id="usuario" placeholder="Correo electrónico">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Entrar</button>
+        <button onclick="cerrarLogin()" style="background:transparent; color:#888; text-decoration:underline; font-size:0.8em; margin-top:10px;">
+            Cancelar
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

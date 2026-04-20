@@ -1,0 +1,371 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Cambio a fuente más moderna tipo portal */
+    background-color: #0b0b0b;
+    color: #f5f5f5;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 30px 20px;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+header h1 {
+    margin: 5px 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+
+/* NAV */
+nav {
+    text-align: center;
+    padding: 15px;
+    background-color: #111;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #c40000;
+    border-bottom: 2px solid #c40000;
+}
+
+.categorias-full-menu {
+    position: absolute;
+    top: 60px;
+    background: #111;
+    border: 1px solid #c40000;
+    padding: 20px;
+    display: none; /* Se activaría con el botón ☰ */
+    z-index: 2000;
+}
+
+/* --- NUEVO SISTEMA DE PARRILLA (GRID) --- */
+.container {
+    width: 95%;
+    max-width: 1400px; /* Ahora es más ancho para que quepan varias noticias de lado */
+    margin: 30px auto;
+}
+
+#contenedorNoticias {
+    display: grid;
+    /* Crea columnas automáticamente según el tamaño de la pantalla */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px; 
+}
+
+/* TARJETA DE NOTICIA (ESTILO IMAGEN ADJUNTADA) */
+.noticia-card {
+    background-color: #111;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #222;
+}
+
+.noticia-card:hover {
+    transform: translateY(-5px);
+    border-color: #c40000;
+}
+
+/* Imagen de la tarjeta */
+.card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Hace que la imagen llene el cuadro sin deformarse */
+}
+
+/* Título de la tarjeta */
+.card-content {
+    padding: 15px;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.2em;
+    color: #fff;
+    line-height: 1.4;
+    font-weight: bold;
+    /* Limita a 3 líneas de texto */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- ESTILOS PARA LA PÁGINA POST.HTML (NOTICIA COMPLETA) --- */
+.noticia-contenido {
+    font-family: 'Georgia', serif; /* Serif para leer mejor la noticia completa */
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.noticia-contenido img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 30px auto;
+    border-radius: 8px;
+}
+
+/* --- PANEL DE ADMINISTRACIÓN / EDITOR --- */
+.ql-container {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+.ql-toolbar.ql-snow {
+    background-color: #f0f0f0;
+}
+
+#listaPosts div {
+    background: #111;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 4px solid #c40000;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #222;
+    color: #aaa;
+    margin-top: 50px;
+}
+
+/* RESPONSIVO MÓVIL */
+@media (max-width: 600px) {
+    .container { width: 100%; padding: 10px; }
+    #contenedorNoticias { grid-template-columns: 1fr; } /* Una sola columna en celular */
+}
+
+/* --- FIX LOGIN MODAL --- */
+.modal {
+    display: none; /* Se activa por JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fondo oscuro detrás */
+    z-index: 9999; /* Asegura que esté por encima de la parrilla de noticias */
+}
+
+.modal-content {
+    background: #111;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado perfecto */
+    width: 320px;
+    text-align: center;
+    border: 1px solid #c40000;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(196, 0, 0, 0.4);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #fff;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-sizing: border-box; /* Evita que el input se salga del cuadro */
+    background: #000;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.modal-content button {
+    width: 100%;
+    background: #c40000;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 10px; /* <--- Esto separa el primer botón del segundo */
+    transition: 0.3s;
+}
+
+.modal-content button:hover {
+    background: #a00000;
+}
+
+/* Estilo específico para el botón de cancelar (el segundo botón) */
+.modal-content button:last-of-type {
+    background: transparent; 
+    color: #888;
+    font-size: 0.85em;
+    margin-top: 5px;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.modal-content button:last-of-type:hover {
+    color: #fff;
+    background: transparent;
+}
+
+/* BOTÓN DE REDACCIÓN ESTILO PREMIUM (OPCIÓN 3) */
+.nav-admin-btn {
+    background: linear-gradient(45deg, #8b0000, #c40000); /* Degradado elegante */
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 4px;
+    border: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #5e0000; /* Efecto 3D de profundidad */
+    transition: all 0.1s ease;
+    margin-left: 15px;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Efecto al pasar el ratón */
+.nav-admin-btn:hover {
+    filter: brightness(1.1); /* Brilla un poco más */
+}
+
+/* Efecto al hacer clic (se hunde) */
+.nav-admin-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #5e0000;
+}
+
+/* Ajuste para que se vea bien en móviles */
+@media (max-width: 600px) {
+    .nav-admin-btn {
+        margin: 10px 0;
+        padding: 8px 15px;
+        font-size: 0.75em;
+    }
+}
+
+.footer-login {
+    color: #333; /* Color gris muy oscuro, casi se pierde con el fondo */
+    text-decoration: none;
+    font-size: 0.8em;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-login:hover {
+    color: #c40000; /* Solo se ilumina en rojo al pasar el mouse */
+    text-decoration: underline;
+}
+
+.btn-logout {
+    background: #222;
+    color: #888;
+    border: 1px solid #444;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-left: 10px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-logout:hover {
+    background: #333;
+    color: #fff;
+    border-color: #666;
+}
+nav a, nav a:visited, nav a:active {
+    color: #f5f5f5 !important; 
+    text-decoration: none;
+    padding: 5px 12px;
+}
+
+nav a:hover {
+    color: #c40000 !important;
+}
+
+/* Estilos para el Dropdown de Categorías */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropbtn {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+    z-index: 1001;
+    border: 1px solid #333;
+    border-radius: 4px;
+    text-align: left;
+}
+
+/* Enlaces dentro del desplegable */
+.dropdown-content a {
+    color: #f5f5f5 !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #222;
+    font-size: 0.9em;
+}
+
+.dropdown-content a:hover {
+    background-color: #222;
+    color: #c40000 !important;
+}
+
+/* Mostrar al pasar el mouse */
+.dropdown:hover .dropdown-content {
+    display: block;
+}

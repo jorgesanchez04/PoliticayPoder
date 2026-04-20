@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargando noticia... | Política & Poder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png" type="image/jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+    <img src="logo.jpeg" alt="Logo" class="logo" onclick="volverAInicio(null)" style="cursor:pointer">
+    <h1>Política & Poder</h1>
+</header>
+
+<nav id="main-nav">
+    <a href="#" onclick="volverAInicio(null)">Inicio</a>
+</nav>
+
+<div class="container">
+    <div class="main" style="width: 100%; max-width: 800px; margin: 0 auto; border-right: none;"> 
+        <article id="detalleNoticia">
+            <h1 id="titulo" style="font-size: 2.5em; margin-bottom: 10px; line-height: 1.2;">Cargando...</h1>
+            <p id="meta" style="color: #c40000; font-weight: bold; margin-bottom: 20px; font-family: sans-serif;"></p>
+            
+            <div id="contenido" class="noticia-contenido">
+                </div>
+            
+            <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+            
+            <button onclick="volverAInicio(null)" style="background: #c40000; color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; border-radius: 5px; text-transform: uppercase; letter-spacing: 1px;">
+                ← Volver
+            </button>
+        </article>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Política & Poder</p>
+    <a href="#" id="loginLink" onclick="abrirModal()" class="footer-login">Acceso Staff</a>
+</footer>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Acceso Redacción</h2>
+        <input type="text" id="usuario" placeholder="Correo">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Entrar</button>
+        <button onclick="cerrarLogin()">Cancelar</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script> <script>
+    async function cargarDetalle() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        const { data: post, error } = await supabase
+            .from("posts")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+        if (error || !post) {
+            document.getElementById("titulo").innerText = "Noticia no encontrada";
+            return;
+        }
+
+        // Inyectar datos
+        document.title = `${post.titulo} | Política & Poder`;
+        document.getElementById("titulo").innerText = post.titulo;
+        
+        const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+        const fecha = new Date(post.fecha).toLocaleDateString('es-ES', opciones);
+        
+        // Mostramos Categoría | Fecha | Autor
+        const catTxt = post.categoria ? post.categoria.toUpperCase() : "GENERAL";
+        document.getElementById("meta").innerText = `${catTxt} | ${fecha} | Por: ${post.autor}`;
+        
+        document.getElementById("contenido").innerHTML = post.contenido;
+    }
+
+    // Ejecutamos la carga local al iniciar
+    document.addEventListener('DOMContentLoaded', cargarDetalle);
+</script>
+</body>
+</html>

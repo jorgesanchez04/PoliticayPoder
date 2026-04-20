@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Redacción</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/jpeg">
+</head>
+<body>
+
+<header>
+    <h1>Panel de Redacción</h1>
+    <button onclick="logout()">Cerrar sesión</button>
+    <button onclick="volver()">Volver al inicio</button>
+</header>
+
+<div class="container">
+    <div class="main">
+        <h2 id="formTitle">Crear nueva noticia</h2>
+
+        <input type="hidden" id="postIdActual">
+
+        <input type="text" id="tituloInput" placeholder="Título" style="width:100%; padding:10px; margin-bottom:10px;">
+        <input type="text" id="autorInput" placeholder="Autor (opcional)" style="width:100%; padding:10px; margin-bottom:10px;">
+        <label style="display:block; margin-bottom:5px; color:#aaa; font-size:0.9em;">Fecha de la noticia (opcional):</label>
+        <input type="date" id="fechaInput" style="width:100%; padding:10px; margin-bottom:10px; background: white; color: black; border: 1px solid #ccc;">
+        <input type="text" id="categoriaInput" placeholder="Categoría" style="width:100%; padding:10px; margin-bottom:10px;">
+
+        <div id="editor" style="height: 300px; background: white; color: black;"></div>
+
+        <button onclick="guardarPost()" style="margin-top: 10px; padding: 10px 20px; cursor: pointer;">
+            Publicar / Guardar Cambios
+        </button>
+
+        <hr style="margin: 40px 0;">
+
+        <h2>Noticias publicadas</h2>
+        <div id="listaPosts"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
