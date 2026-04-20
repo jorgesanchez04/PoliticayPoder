@@ -131,8 +131,8 @@ nav a:hover {
 }
 
 .noticia-contenido img {
-    max-width: 100%;
-    height: auto;
+    max-width: 100% !important;
+    height: auto !important;
     display: block;
     margin: 30px auto;
     border-radius: 8px;
@@ -146,6 +146,11 @@ nav a:hover {
 
 .ql-toolbar.ql-snow {
     background-color: #f0f0f0;
+}
+
+.ql-editor img {
+    max-width: 100%;
+    height: auto;
 }
 
 #listaPosts div {
