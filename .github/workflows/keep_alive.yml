@@ -1,0 +1,14 @@
+name: Mantener Supabase Despierto
+on:
+  schedule:
+    - cron: '0 0 * * 1,3,5'
+  workflow_dispatch:
+jobs:
+  ping_supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Realizar consulta
+        run: |
+          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/posts?select=id&limit=1" \
+          -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
